@@ -46,6 +46,14 @@
         android:drawableRight="@drawable/arrow_right"
         android:drawablePadding="4dp"/>
 
+    <Button
+        android:id="@+id/prev_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/prev_button"
+        android:drawableRight="@drawable/arrow_left"
+        android:drawablePadding="4dp"/>
+
 
 </LinearLayout>
 
