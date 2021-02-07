@@ -18,7 +18,6 @@
         android:layout_height="wrap_content"
         android:padding="24dp" />
 
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,25 +34,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/false_button" />
-
     </LinearLayout>
 
-    <Button
-        android:id="@+id/next_button"
-        android:layout_width="45dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal" >
 
-        android:drawableRight="@drawable/arrow_right"
-        android:drawablePadding="4dp"/>
+        <Button
+            android:id="@+id/prev_button"
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
 
-    <Button
-        android:id="@+id/prev_button"
-        android:layout_width="45dp"
-        android:layout_height="wrap_content"
+            android:drawableRight="@drawable/arrow_left"
+            android:drawablePadding="4dp"/>
 
-        android:drawableRight="@drawable/arrow_left"
-        android:drawablePadding="4dp"/>
+        <Button
+            android:id="@+id/next_button"
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:left="40dp"
+            android:drawableRight="@drawable/arrow_right"
+            android:drawablePadding="4dp"/>
 
+    </LinearLayout>
 
 </LinearLayout>
 
