@@ -1,4 +1,5 @@
 package com.example.geoquiz;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +11,8 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "QuizActivity";
+    private static final String KEY_INDEX = "index";
     private Button mTrueButton;
     private Button mFalseButton;
     private Button mNextButton;
@@ -26,14 +29,22 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private int mCurrentIndex = 0;
+    private double mScore = 0;
 
     public MainActivity() {
+
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate(Bundle) called");
         setContentView(R.layout.activity_main);
+
+        if (savedInstanceState != null) {
+            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+        }
 
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
 
@@ -42,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 checkAnswer(true);
+                mTrueButton.setEnabled(false);
+                mFalseButton.setEnabled(false);
             }
         });
 
@@ -50,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 checkAnswer(false);
+                mFalseButton.setEnabled(false);
+                mTrueButton.setEnabled(false);
             }
         });
 
@@ -59,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
                 updateQuestion();
+                mFalseButton.setEnabled(true);
+                mTrueButton.setEnabled(true);
             }
         });
 
@@ -68,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
                 updateQuestion();
+                mFalseButton.setEnabled(true);
+                mTrueButton.setEnabled(true);
             }
         });
 
@@ -77,10 +96,49 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mCurrentIndex = (mCurrentIndex - 1) % mQuestionBank.length;
                 updateQuestion();
+                mFalseButton.setEnabled(false);
+                mTrueButton.setEnabled(false);
             }
         });
 
         updateQuestion();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart() called");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume() called");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause() called");
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        Log.i(TAG, "onSaveInstanceState");
+        savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop() called");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy() called");
     }
 
     private void updateQuestion() {
@@ -95,11 +153,17 @@ public class MainActivity extends AppCompatActivity {
 
         if (userPressedTrue == answerIsTrue) {
             messageResId = R.string.correct_toast;
+            mScore += 1;
         } else {
             messageResId = R.string.incorrect_toast;
         }
 
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show();
+
+        if (mCurrentIndex == 5) {
+
+            Toast.makeText(this, (mScore / 6.0 * 100) + "%", Toast.LENGTH_SHORT).show();
+        }
 
     }
 }
