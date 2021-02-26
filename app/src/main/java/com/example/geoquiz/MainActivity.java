@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mTrueButton;
     private Button mFalseButton;
     private Button mNextButton;
+    private Button mCheatButton;
     private Button mPrevButton;
     private TextView mQuestionTextView;
 
@@ -76,6 +77,14 @@ public class MainActivity extends AppCompatActivity {
                 updateQuestion();
                 mFalseButton.setEnabled(true);
                 mTrueButton.setEnabled(true);
+            }
+        });
+
+        mCheatButton = (Button)findViewById(R.id.cheat_button);
+        mCheatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start CheatActivity
             }
         });
 
