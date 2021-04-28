@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mFalseButton;
     private Button mNextButton;
     private Button mCheatButton;
+    private Button mResButton;
     private Button mPrevButton;
     private TextView mQuestionTextView;
 
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate(Bundle) called");
         setContentView(R.layout.activity_main);
 
+
+
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
             mIsCheater = savedInstanceState.getBoolean(KEY_CHEAT, false);
@@ -60,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
 
         mTrueButton = (Button) findViewById(R.id.true_button);
         mTrueButton.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View v) {
                 checkAnswer(true);
@@ -101,6 +106,17 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = CheatActivity.newIntent(MainActivity.this, answerIsTrue);
 
                 startActivityForResult(intent, REQUEST_CODE_CHEAT);
+            }
+        });
+
+        mResButton = (Button)findViewById(R.id.result_button);
+        mResButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
+                String strScore = String.valueOf(mScore);
+                Intent intent = ResultActivity.newIntent(MainActivity.this, answerIsTrue, strScore);
+                startActivity(intent);
             }
         });
 
@@ -211,8 +227,11 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show();
 
         if (mCurrentIndex == 5) {
-            Toast.makeText(this, (mScore / 6.0 * 100) + "%", Toast.LENGTH_SHORT).show();
+            mResButton.setEnabled(true);
+            //Toast.makeText(this, (mScore / 6.0 * 100) + "%", Toast.LENGTH_SHORT).show();
         }
 
     }
+
+
 }
