@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
@@ -27,13 +27,15 @@
             android:id="@+id/true_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/true_button" />
+            android:text="@string/true_button"
+            app:backgroundTint="#8BC34A" />
 
         <Button
             android:id="@+id/false_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/false_button" />
+            android:text="@string/false_button"
+            app:backgroundTint="#DC0000" />
     </LinearLayout>
 
     <LinearLayout
@@ -48,29 +50,34 @@
             android:layout_height="wrap_content"
 
             android:drawableRight="@drawable/arrow_left"
-            android:drawablePadding="4dp"/>
+            android:drawablePadding="4dp"
+            app:backgroundTint="#3F51B5" />
 
         <Button
             android:id="@+id/cheat_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cheat_button" />
+            android:text="@string/cheat_button"
+            app:backgroundTint="#2196F3" />
 
         <Button
             android:id="@+id/result_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
-            android:text="@string/res_button" />
+            android:enabled="false"
+            android:text="@string/res_button"
+            app:backgroundTint="#2196F3" />
 
         <Button
             android:id="@+id/next_button"
             android:layout_width="45dp"
             android:layout_height="wrap_content"
 
-            android:left="40dp"
             android:drawableRight="@drawable/arrow_right"
-            android:drawablePadding="4dp"/>
+            android:drawablePadding="4dp"
+            android:left="40dp"
+            app:backgroundTint="#3F51B5" />
 
     </LinearLayout>
 

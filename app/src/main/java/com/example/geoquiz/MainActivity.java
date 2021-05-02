@@ -114,9 +114,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
-                String strScore = String.valueOf(mScore);
-                Intent intent = ResultActivity.newIntent(MainActivity.this, answerIsTrue, strScore);
-                startActivity(intent);
+                double score = mScore;
+
+                Intent intent = ResultActivity.newIntent(MainActivity.this, answerIsTrue, score);
+
+                startActivityForResult(intent, REQUEST_CODE_CHEAT);
+
             }
         });
 

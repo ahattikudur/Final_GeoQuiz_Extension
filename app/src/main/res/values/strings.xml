@@ -16,9 +16,11 @@
     <string name="incorrect_toast">Incorrect!</string>
     <string name="warning_text">Are you sure you want to do this?</string>
     <string name="show_answer_button"> Answer Show</string>
+    <string name="res_prompt">Click for Stats!</string>
     <string name="cheat_button">Cheat!</string>
-    <string name="compare_button">Compare</string>
-    <string name="score_button">Get Score</string>
+    <string name="num_correct_button"># Correct</string>
+    <string name="num_incorrect_button"># Incorrect</string>
+    <string name="score_button">Score</string>
     <string name="judgment_toast">Cheating is wrong.</string>
 
 </resources>

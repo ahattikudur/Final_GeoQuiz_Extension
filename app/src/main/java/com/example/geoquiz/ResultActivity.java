@@ -23,18 +23,18 @@ public class ResultActivity extends AppCompatActivity {
 
     private boolean mAnswerIsTrue;
 
-    //private int mScore;
+    private double mScore;
 
     private TextView mAnswerTextView;
     private TextView mQuestionTextView;
-    private Button mCompareButton;
+    private Button mNumCorrectButton;
+    private Button mNumIncorrectButton;
     private Button mScoreButton;
 
-    public static Intent newIntent(Context packageContext, boolean answerIsTrue, String strScore) {
+    public static Intent newIntent(Context packageContext, boolean answerIsTrue, double score) {
         Intent intent = new Intent(packageContext, ResultActivity.class);
         intent.putExtra(EXTRA_ANSWER_IS_TRUE, answerIsTrue);
-        intent.putExtra(EXTRA_SCORE, strScore);
-
+        intent.putExtra(EXTRA_SCORE, score);
         return intent;
     }
 
@@ -42,40 +42,38 @@ public class ResultActivity extends AppCompatActivity {
         return result.getBooleanExtra(EXTRA_ANSWER_SHOWN, false);
     }
 
-    //public static int whatIsScore(Intent result) {
-    //    return result.getIntExtra(EXTRA_SCORE, 0);
-    //}
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_result);
 
+        mScore = getIntent().getDoubleExtra(EXTRA_SCORE, 0);
         mAnswerIsTrue = getIntent().getBooleanExtra(EXTRA_ANSWER_IS_TRUE, false);
-
-        //mScore = getIntent().getIntExtra(EXTRA_SCORE, 0);
 
         mAnswerTextView = (TextView) findViewById(R.id.answer_text_view);
 
-        mCompareButton = (Button) findViewById(R.id.compare_button);
-
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
-        mQuestionTextView.setText(R.string.question_africa);
+        mQuestionTextView.setText(R.string.res_prompt);
 
 
-
-        mCompareButton.setOnClickListener(new View.OnClickListener() {
+        mNumCorrectButton = (Button) findViewById(R.id.num_correct_button);
+        mNumCorrectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mAnswerIsTrue) {
-                    mAnswerTextView.setText(R.string.true_button);
+                String strScore = String.valueOf(mScore);
+                mQuestionTextView.setText(R.string.num_correct_button);
+                mAnswerTextView.setText(strScore);
+            }
+        });
 
-                } else {
-                    mAnswerTextView.setText(R.string.false_button);
-                }
-                setAnswerShownResult(true);
-
+        mNumIncorrectButton = (Button) findViewById(R.id.num_incorrect_button);
+        mNumIncorrectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String strScore = String.valueOf(6 - mScore);
+                mQuestionTextView.setText(R.string.num_incorrect_button);
+                mAnswerTextView.setText(strScore);
             }
         });
 
@@ -83,7 +81,11 @@ public class ResultActivity extends AppCompatActivity {
         mScoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ResultActivity.this, EXTRA_SCORE, Toast.LENGTH_SHORT).show();
+
+                String strScore = String.valueOf(Math.floor(mScore / 6.0 * 100));
+                mQuestionTextView.setText(R.string.score_button);
+                mAnswerTextView.setText(strScore + "%");
+                Toast.makeText(ResultActivity.this, strScore + "%", Toast.LENGTH_SHORT).show();
             }
         });
     }
